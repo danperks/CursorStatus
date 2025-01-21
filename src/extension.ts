@@ -125,7 +125,15 @@ async function refreshStatus(showNotification: boolean = false) {
 
 function checkCursorDegradation() {
 	if (serviceStatus.cursor === 'degraded' && !hasShownCursorDegradedNotification) {
-		vscode.window.showWarningMessage('Cursor services are currently degraded');
+		vscode.window.showWarningMessage(
+			'Cursor services are currently degraded',
+			{ modal: false, detail: 'Click Learn More to view status page' },
+			'Learn More'
+		).then(selection => {
+			if (selection === 'Learn More') {
+				vscode.env.openExternal(vscode.Uri.parse('https://status.cursor.com'));
+			}
+		});
 		hasShownCursorDegradedNotification = true;
 	} else if (serviceStatus.cursor === 'normal') {
 		hasShownCursorDegradedNotification = false;
@@ -136,7 +144,7 @@ function checkCursorDegradation() {
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	// Create status bar item with lowest priority to move it to the far right
-	statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 9999999999);
+	statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, -9999999999);
 	updateStatusText();
 	statusBarItem.color = '#89D185'; // Green color
 	
