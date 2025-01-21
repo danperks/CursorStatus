@@ -1,9 +1,13 @@
 {
   "name": "cursorstatus",
-  "displayName": "CursorStatus",
+  "displayName": "CursorStatus", 
   "description": "Monitor the status of Cursor, OpenAI, and Anthropic services in real-time",
   "version": "0.0.1",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danperks/CursorStatus"
+  },
   "engines": {
     "vscode": "^1.96.0"
   },
